@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head><title><%= title %></title></head>
+<body>
+  <h1>Admin</h1>
+  <section>
+    <h2>Create Bundle</h2>
+    <form method="post" action="/admin/bundles">
+      <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+      <input name="title" placeholder="Title" required />
+      <input name="description" placeholder="Description" />
+      <input name="subjects" placeholder="Subjects comma-separated" />
+      <input name="priceCents" type="number" placeholder="Price (cents)" required />
+      <button>Create</button>
+    </form>
+  </section>
+  <section>
+    <h2>Bundles</h2>
+    <ul>
+      <% bundles.forEach(b => { %>
+      <li>
+        <strong><%= b.title %></strong> - $<%= (b.priceCents/100).toFixed(2) %>
+        <% if (!b.isPublished) { %>
+          <form method="post" action="/admin/bundles/<%= b.id %>/publish" style="display:inline">
+            <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+            <button>Publish</button>
+          </form>
+        <% } %>
+      </li>
+      <% }) %>
+    </ul>
+  </section>
+  <section>
+    <h2>Pending Contributions</h2>
+    <ul>
+      <% pending.forEach(p => { %>
+      <li>
+        <strong><%= p.title %></strong> - <%= p.status %>
+        <form method="post" action="/admin/contributions/<%= p.id %>/approve" style="display:inline">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <button>Approve</button>
+        </form>
+        <form method="post" action="/admin/contributions/<%= p.id %>/reject" style="display:inline">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+          <button>Reject</button>
+        </form>
+      </li>
+      <% }) %>
+    </ul>
+  </section>
+</body>
+</html>

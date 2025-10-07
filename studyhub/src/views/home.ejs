@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <header>
+    <h1>StudyHub</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/bundles">Bundles</a>
+      <% if (!currentUser) { %>
+        <a href="/auth/login">Login</a>
+        <a href="/auth/register">Register</a>
+      <% } else { %>
+        <a href="/dashboard">Dashboard</a>
+        <form method="post" action="/auth/logout" style="display:inline"><input type="hidden" name="_csrf" value="<%= csrfToken %>"><button>Logout</button></form>
+      <% } %>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Find study bundles</h2>
+      <form method="get" action="/bundles">
+        <input type="text" name="q" placeholder="Search subjects or titles" />
+        <button>Search</button>
+      </form>
+    </section>
+  </main>
+  <script src="/widget.js"></script>
+</body>
+</html>
