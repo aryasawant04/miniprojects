@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head><title><%= title %></title></head>
+<body>
+  <h1>Register</h1>
+  <% if (typeof errors !== undefined) { %>
+    <ul>
+      <% errors.forEach(e => { %><li><%= e.msg %></li><% }) %>
+    </ul>
+  <% } %>
+  <form method="post" action="/auth/register">
+    <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+    <input name="name" placeholder="Name" required />
+    <input name="email" type="email" placeholder="Email" required />
+    <input name="password" type="password" placeholder="Password" required />
+    <button>Register</button>
+  </form>
+</body>
+</html>

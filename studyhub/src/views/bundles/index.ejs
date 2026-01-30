@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title><%= title %></title></head>
+<body>
+  <h1>Bundles</h1>
+  <form method="get" action="/bundles">
+    <input name="q" value="<%= q %>" placeholder="Search" />
+    <button>Search</button>
+  </form>
+  <ul>
+    <% bundles.forEach(b => { %>
+    <li><a href="/bundles/<%= b.id %>"><%= b.title %></a> - $<%= (b.priceCents/100).toFixed(2) %></li>
+    <% }) %>
+  </ul>
+</body>
+</html>
